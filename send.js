@@ -1,3 +1,4 @@
+// send.js
 import { database, ref, push, auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from './firebase-config.js';
 
 const registerForm = document.getElementById('registerForm');
@@ -7,7 +8,7 @@ const authDiv = document.getElementById('auth');
 const messageSection = document.getElementById('messageSection');
 const logoutButton = document.getElementById('logoutButton');
 
-// Obtenha o nome do motoboy a partir do título da página
+// Obtenha o nome do motoboy a partir do nome do arquivo da página
 const motoboy = document.title.split(' ')[3].toLowerCase();
 
 // Lógica de Cadastro
