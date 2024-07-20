@@ -7,6 +7,9 @@ const authDiv = document.getElementById('auth');
 const messageSection = document.getElementById('messageSection');
 const logoutButton = document.getElementById('logoutButton');
 
+// Obtenha o nome do motoboy a partir do título da página
+const motoboy = document.title.split(' ')[3].toLowerCase();
+
 // Lógica de Cadastro
 registerForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -58,7 +61,6 @@ onAuthStateChanged(auth, (user) => {
 // Enviar Mensagem
 messageForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const motoboy = document.getElementById('motoboy').value;
     const message = document.getElementById('message').value;
     const messagesRef = ref(database, `messages/${motoboy}`);
     push(messagesRef, {
