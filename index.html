@@ -8,6 +8,8 @@
     <link rel="icon" href="https://i.ibb.co/jZ6rbSp/logo-cabana.png" type="image/png">
     <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/jZ6rbSp/logo-cabana.png">
     <link rel="manifest" href="manifest.json">
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-messaging.js"></script>
 </head>
 <body>
     <h1>FCM Notification Example</h1>
@@ -22,6 +24,7 @@
                     getToken(messaging, { vapidKey: 'BG1rGdXly1ZZLYgvdoo8M-yOxMULPxbt5f5WpbISG4XWChaV7AOyG4SjTsnSvAQlRI6Nwa5XurzTEvE8brQh01w' }).then((currentToken) => {
                         if (currentToken) {
                             console.log('FCM Token:', currentToken);
+                            // Envie o token para o servidor e armazene-o para enviar notificações
                         } else {
                             console.log('No registration token available.');
                         }
