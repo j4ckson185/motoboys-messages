@@ -15,6 +15,7 @@
     <h1>FCM Notification Example</h1>
     <button id="requestPermission">Request Notification Permission</button>
     <script>
+        // Configuração do Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyB-pF2lRStLTN9Xw9aYQj962qdNFyUXI2E",
             authDomain: "cabana-8d55e.firebaseapp.com",
@@ -26,6 +27,7 @@
             measurementId: "G-96Y337GYT8"
         };
 
+        // Inicializar Firebase
         firebase.initializeApp(firebaseConfig);
 
         const messaging = firebase.messaging();
