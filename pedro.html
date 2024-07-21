@@ -61,6 +61,17 @@
         // Nome do motoboy fixo para Pedro
         const motoboy = 'pedro';
 
+        // Registrar o Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(registration => {
+                    console.log('Service Worker registrado com sucesso:', registration);
+                })
+                .catch(error => {
+                    console.log('Falha ao registrar o Service Worker:', error);
+                });
+        }
+
         // Lógica de Login
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -127,8 +138,8 @@
                 messageElement.appendChild(deleteButton);
                 messagesDiv.appendChild(messageElement);
 
-                // Tocar o som de notificação
-                playNotificationSound();
+                // Mostrar notificação e tocar som
+                showNotification(message);
             });
         }
 
@@ -143,24 +154,25 @@
             }
         }
 
-        // Solicitar permissão para notificações e tocar som
+        // Solicitar permissão para notificações
         function requestNotificationPermission() {
             if ('Notification' in window) {
                 Notification.requestPermission().then(permission => {
                     if (permission === 'granted') {
-                        showNotification();
+                        console.log('Permissão para notificações concedida.');
                     }
                 });
             }
         }
 
-        // Mostrar notificação para garantir que o som possa tocar
-        function showNotification() {
-            if ('Notification' in window && 'serviceWorker' in navigator) {
+        // Mostrar notificação e tocar som
+        function showNotification(message) {
+            if ('Notification' in window && navigator.serviceWorker) {
                 navigator.serviceWorker.ready.then(registration => {
-                    registration.showNotification('Notificação de Teste', {
-                        body: 'Teste de notificação para ativar som.',
-                        tag: 'test-notification'
+                    registration.showNotification('Nova mensagem', {
+                        body: message,
+                        tag: 'new-message',
+                        icon: 'https://i.ibb.co/jZ6rbSp/logo-cabana.png'
                     });
 
                     // Tocar o som após mostrar a notificação
