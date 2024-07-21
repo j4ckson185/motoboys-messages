@@ -32,7 +32,11 @@
             <button id="logoutButton">Sair</button>
         </div>
 
-        <audio id="notificationSound" src="assets/notification.mp3" preload="auto"></audio>
+        <audio id="notificationSound" preload="auto">
+            <source src="assets/notification.mp3" type="audio/mpeg">
+            <source src="assets/notification.ogg" type="audio/ogg">
+            Your browser does not support the audio element.
+        </audio>
     </div>
 
     <script type="module">
@@ -49,6 +53,7 @@
         // Nome do motoboy fixo para Pedro
         const motoboy = 'pedro';
 
+        // Lógica de Login
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value;
@@ -62,6 +67,7 @@
                 });
         });
 
+        // Lógica de Logout
         logoutButton.addEventListener('click', () => {
             signOut(auth).then(() => {
                 // Logout bem-sucedido
@@ -70,6 +76,7 @@
             });
         });
 
+        // Botão para apagar todas as mensagens
         deleteAllButton.addEventListener('click', () => {
             if (confirm('Tem certeza que deseja apagar todas as mensagens?')) {
                 const messagesRef = ref(database, `messages/${motoboy}`);
@@ -81,6 +88,7 @@
             }
         });
 
+        // Verifica o estado de autenticação do usuário
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 authDiv.style.display = 'none';
@@ -92,6 +100,7 @@
             }
         });
 
+        // Função para carregar as mensagens
         function loadMessages() {
             const messagesRef = ref(database, `messages/${motoboy}`);
             messagesDiv.innerHTML = '';
@@ -109,11 +118,29 @@
                 messageElement.appendChild(deleteButton);
                 messagesDiv.appendChild(messageElement);
 
-                notificationSound.play().catch(error => {
-                    console.error('Erro ao reproduzir o som de notificação:', error);
-                });
+                // Tocar o som de notificação
+                playNotificationSound();
             });
         }
+
+        // Função para tocar o som de notificação
+        function playNotificationSound() {
+            notificationSound.currentTime = 0; // Rewind to start
+            const playPromise = notificationSound.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.error('Erro ao reproduzir o som de notificação:', error);
+                });
+            }
+        }
+
+        // Preparar o som para tocar
+        window.addEventListener('load', () => {
+            notificationSound.play().catch(error => {
+                console.log('Erro ao preparar o som de notificação:', error);
+            });
+        });
+
     </script>
 </body>
 </html>
