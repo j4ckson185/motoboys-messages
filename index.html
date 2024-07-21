@@ -16,7 +16,7 @@
     <button id="requestPermission">Request Notification Permission</button>
     <script>
         // Configuração do Firebase
-        const firebaseConfig = {
+        var config = {
             apiKey: "AIzaSyB-pF2lRStLTN9Xw9aYQj962qdNFyUXI2E",
             authDomain: "cabana-8d55e.firebaseapp.com",
             databaseURL: "https://cabana-8d55e-default-rtdb.firebaseio.com",
@@ -26,29 +26,22 @@
             appId: "1:706144237954:web:345c10370972486afc779b",
             measurementId: "G-96Y337GYT8"
         };
-
-        // Inicializar Firebase
-        firebase.initializeApp(firebaseConfig);
+        firebase.initializeApp(config);
 
         const messaging = firebase.messaging();
 
         document.getElementById('requestPermission').addEventListener('click', () => {
-            Notification.requestPermission().then((permission) => {
-                if (permission === 'granted') {
-                    console.log('Notification permission granted.');
-                    messaging.getToken({ vapidKey: 'BG1rGdXly1ZZLYgvdoo8M-yOxMULPxbt5f5WpbISG4XWChaV7AOyG4SjTsnSvAQlRI6Nwa5XurzTEvE8brQh01w' }).then((currentToken) => {
-                        if (currentToken) {
-                            console.log('FCM Token:', currentToken);
-                            // Envie o token para o servidor e armazene-o para enviar notificações
-                        } else {
-                            console.log('No registration token available.');
-                        }
-                    }).catch((err) => {
-                        console.log('An error occurred while retrieving token. ', err);
-                    });
-                } else {
-                    console.log('Unable to get permission to notify.');
-                }
+            messaging.requestPermission()
+            .then(function() {
+                console.log('Have permission');
+                return messaging.getToken();
+            })
+            .then(function(token) {
+                console.log(token);
+                // Envie o token para o servidor e armazene-o para enviar notificações
+            })
+            .catch(function(err) {
+                console.log('Error Occurred.', err);
             });
         });
 
@@ -56,6 +49,7 @@
             navigator.serviceWorker.register('/firebase-messaging-sw.js')
             .then((registration) => {
                 console.log('Service Worker registered with scope:', registration.scope);
+                messaging.useServiceWorker(registration);
             }).catch((error) => {
                 console.log('Service Worker registration failed:', error);
             });
