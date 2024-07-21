@@ -69,6 +69,7 @@
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     loginForm.reset();
+                    requestNotificationPermission();
                 })
                 .catch((error) => {
                     alert('Erro ao entrar: ' + error.message);
@@ -102,7 +103,6 @@
                 authDiv.style.display = 'none';
                 messagesSection.style.display = 'block';
                 loadMessages();
-                requestNotificationPermission();
             } else {
                 authDiv.style.display = 'block';
                 messagesSection.style.display = 'none';
@@ -148,8 +148,23 @@
             if ('Notification' in window) {
                 Notification.requestPermission().then(permission => {
                     if (permission === 'granted') {
-                        playNotificationSound();
+                        showNotification();
                     }
+                });
+            }
+        }
+
+        // Mostrar notificação para garantir que o som possa tocar
+        function showNotification() {
+            if ('Notification' in window && 'serviceWorker' in navigator) {
+                navigator.serviceWorker.ready.then(registration => {
+                    registration.showNotification('Notificação de Teste', {
+                        body: 'Teste de notificação para ativar som.',
+                        tag: 'test-notification'
+                    });
+
+                    // Tocar o som após mostrar a notificação
+                    playNotificationSound();
                 });
             }
         }
