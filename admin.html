@@ -1,28 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Administrativo</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="https://i.ibb.co/jZ6rbSp/logo-cabana.png" type="image/png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/jZ6rbSp/logo-cabana.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://i.ibb.co/jZ6rbSp/logo-cabana.png">
-    <link rel="manifest" href="manifest.json">
+    <title>Painel Administrativo - Cabana Açaí</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .logo {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .logo img {
+            height: 50px;
+            width: auto;
+            vertical-align: middle;
+        }
+        .menu {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+        }
+        .menu ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .menu ul li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .menu ul li a {
+            text-decoration: none;
+            color: #343a40;
+            padding: 5px 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            background-color: #e9ecef;
+        }
+        .menu ul li a:hover {
+            background-color: #dee2e6;
+        }
+    </style>
 </head>
 <body>
     <div class="header">
-        <img src="https://i.ibb.co/jZ6rbSp/logo-cabana.png" alt="Logo Cabana Açaí" class="logo">
+        <div class="logo">
+            <img src="https://i.ibb.co/jZ6rbSp/logo-cabana.png" alt="Logo Cabana Açaí">
+        </div>
         <h1>Cabana Açaí</h1>
     </div>
-    <nav class="navbar">
-        <a href="send-geovane.html">Geovane</a>
-        <a href="send-felipeaugusto.html">Felipe Augusto</a>
-        <a href="send-boaz.html">Boaz</a>
-        <a href="send-moises.html">Moisés</a>
-        <a href="send-fellipematheus.html">Fellipe Matheus</a>
-        <a href="send-joaofelipe.html">João Felipe</a>
-        <a href="send-pedro.html">Pedro Lucas</a>
-    </nav>
+    <div class="menu">
+        <ul>
+            <li><a href="send-geovane.html">Geovane</a></li>
+            <li><a href="send-felipeaugusto.html">Felipe Augusto</a></li>
+            <li><a href="send-moises.html">Moisés</a></li>
+            <li><a href="send-joaofelipe.html">João Felipe</a></li>
+            <li><a href="send-fellipematheus.html">Fellipe Matheus</a></li>
+            <li><a href="send-boaz.html">Boaz</a></li>
+            <li><a href="send-pedrolucas.html">Pedro Lucas</a></li>
+        </ul>
+    </div>
 </body>
 </html>
