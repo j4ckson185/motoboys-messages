@@ -1,16 +1,12 @@
-self.addEventListener('install', event => {
-    console.log('Service Worker instalado');
-    self.skipWaiting();
+// service-worker.js
+self.addEventListener('install', (event) => {
+    console.log('Service worker instalado.');
 });
 
-self.addEventListener('activate', event => {
-    console.log('Service Worker ativado');
+self.addEventListener('activate', (event) => {
+    console.log('Service worker ativado.');
 });
 
-self.addEventListener('notificationclick', event => {
-    event.notification.close();
-});
-
-self.addEventListener('notificationclose', event => {
-    console.log('Notificação fechada');
+self.addEventListener('fetch', (event) => {
+    console.log('Fetch interceptado para:', event.request.url);
 });
