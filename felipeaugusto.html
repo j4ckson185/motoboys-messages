@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mensagens para Felipe Augusto</title>
+    <title>Mensagens para Boaz</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="https://i.ibb.co/jZ6rbSp/logo-cabana.png" type="image/png">
     <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/jZ6rbSp/logo-cabana.png">
@@ -26,7 +26,7 @@
         </div>
 
         <div id="messagesSection" style="display:none;">
-            <h1>Mensagens para Felipe Augusto</h1>
+            <h1>Mensagens para Boaz</h1>
             <div id="messages"></div>
             <button id="deleteAllButton">Apagar todos</button>
             <button id="logoutButton">Sair</button>
@@ -50,7 +50,7 @@
         const messagesDiv = document.getElementById('messages');
         const notificationSound = document.getElementById('notificationSound');
 
-        // Nome do motoboy fixo para Felipe Augusto
+        // Nome do motoboy fixo para Boaz
         const motoboy = 'felipeaugusto';
 
         // Lógica de Login
@@ -105,4 +105,42 @@
             const messagesRef = ref(database, `messages/${motoboy}`);
             messagesDiv.innerHTML = '';
             onChildAdded(messagesRef, (data) => {
-                const message = data.val().
+                const message = data.val().text;
+                const messageElement = document.createElement('div');
+                messageElement.textContent = message;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'X';
+                deleteButton.addEventListener('click', () => {
+                    remove(ref(database, `messages/${motoboy}/${data.key}`));
+                });
+
+                messageElement.appendChild(deleteButton);
+                messagesDiv.appendChild(messageElement);
+
+                // Tocar o som de notificação
+                playNotificationSound();
+            });
+        }
+
+        // Função para tocar o som de notificação
+        function playNotificationSound() {
+            notificationSound.currentTime = 0; // Rewind to start
+            const playPromise = notificationSound.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.error('Erro ao reproduzir o som de notificação:', error);
+                });
+            }
+        }
+
+        // Preparar o som para tocar
+        window.addEventListener('load', () => {
+            notificationSound.play().catch(error => {
+                console.log('Erro ao preparar o som de notificação:', error);
+            });
+        });
+
+    </script>
+</body>
+</html>
