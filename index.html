@@ -10,18 +10,17 @@
     <link rel="manifest" href="manifest.json">
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-messaging.js"></script>
+    <script src="firebase-init.js"></script> <!-- Inicializar Firebase -->
 </head>
 <body>
     <h1>FCM Notification Example</h1>
     <button id="requestPermission">Request Notification Permission</button>
-    <script type="module">
-        import { messaging, getToken } from './firebase-config.js';
-
+    <script>
         document.getElementById('requestPermission').addEventListener('click', () => {
             Notification.requestPermission().then((permission) => {
                 if (permission === 'granted') {
                     console.log('Notification permission granted.');
-                    getToken(messaging, { vapidKey: 'BG1rGdXly1ZZLYgvdoo8M-yOxMULPxbt5f5WpbISG4XWChaV7AOyG4SjTsnSvAQlRI6Nwa5XurzTEvE8brQh01w' }).then((currentToken) => {
+                    messaging.getToken({ vapidKey: 'BG1rGdXly1ZZLYgvdoo8M-yOxMULPxbt5f5WpbISG4XWChaV7AOyG4SjTsnSvAQlRI6Nwa5XurzTEvE8brQh01w' }).then((currentToken) => {
                         if (currentToken) {
                             console.log('FCM Token:', currentToken);
                             // Envie o token para o servidor e armazene-o para enviar notificações
