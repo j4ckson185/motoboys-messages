@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mensagens para Boaz</title>
+    <title>Mensagens para Pedro</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="https://i.ibb.co/jZ6rbSp/logo-cabana.png" type="image/png">
     <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/jZ6rbSp/logo-cabana.png">
@@ -58,7 +58,7 @@
         const messagesDiv = document.getElementById('messages');
         const notificationSound = document.getElementById('notificationSound');
 
-        // Nome do motoboy fixo para Boaz
+        // Nome do motoboy fixo para Pedro
         const motoboy = 'pedro';
 
         // Lógica de Login
@@ -148,6 +148,10 @@
             if ('Notification' in window && navigator.serviceWorker) {
                 Notification.requestPermission(status => {
                     console.log('Notification permission status:', status);
+                    if (status === 'granted') {
+                        // Permissão concedida, preparar para tocar o som
+                        playNotificationSound();
+                    }
                 });
             }
         }
