@@ -1,5 +1,5 @@
-importScripts('https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/9.6.10/firebase-messaging.js');
+importScripts('https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.0.2/firebase-messaging-compat.js');
 
 const firebaseConfig = {
     apiKey: "AIzaSyB-pF2lRStLTN9Xw9aYQj962qdNFyUXI2E",
@@ -21,8 +21,7 @@ messaging.onBackgroundMessage((payload) => {
     const notificationTitle = payload.notification.title;
     const notificationOptions = {
         body: payload.notification.body,
-        icon: 'https://i.ibb.co/jZ6rbSp/logo-cabana.png',
-        sound: 'assets/notification.mp3'
+        icon: 'https://i.ibb.co/jZ6rbSp/logo-cabana.png'
     };
 
     self.registration.showNotification(notificationTitle, notificationOptions);
