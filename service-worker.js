@@ -1,8 +1,6 @@
-// Adicionar scripts do Firebase
 importScripts('https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/9.6.10/firebase-messaging.js');
 
-// Configuração do Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyB-pF2lRStLTN9Xw9aYQj962qdNFyUXI2E",
     authDomain: "cabana-8d55e.firebaseapp.com",
@@ -30,7 +28,6 @@ messaging.onBackgroundMessage((payload) => {
     self.registration.showNotification(notificationTitle, notificationOptions);
 });
 
-// Funções existentes do service worker
 self.addEventListener('install', event => {
     console.log('Service Worker instalado');
     self.skipWaiting();
