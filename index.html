@@ -45,7 +45,9 @@
       }
     }
 
-    document.getElementById('request-permission').addEventListener('click', requestPermission);
+    window.addEventListener('DOMContentLoaded', (event) => {
+      document.getElementById('request-permission').addEventListener('click', requestPermission);
+    });
 
     // Listener para mensagens recebidas enquanto a página está em primeiro plano
     messaging.onMessage((payload) => {
