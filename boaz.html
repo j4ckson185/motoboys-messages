@@ -32,7 +32,11 @@
             <button id="logoutButton">Sair</button>
         </div>
 
-        <audio id="notificationSound" src="assets/notification.mp3" preload="auto"></audio>
+        <audio id="notificationSound" preload="auto">
+            <source src="assets/notification.mp3" type="audio/mpeg">
+            <source src="assets/notification.ogg" type="audio/ogg">
+            Your browser does not support the audio element.
+        </audio>
     </div>
 
     <script type="module">
