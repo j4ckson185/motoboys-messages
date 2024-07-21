@@ -15,14 +15,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
-getToken(messaging, { vapidKey: 'BG1rGdXly1ZZLYgvdoo8M-yOxMULPxbt5f5WpbISG4XWChaV7AOyG4SjTsnSvAQlRI6Nwa5XurzTEvE8brQh01w' }).then((currentToken) => {
-    if (currentToken) {
-        console.log('FCM Token:', currentToken);
-    } else {
-        console.log('No registration token available.');
-    }
-}).catch((err) => {
-    console.log('An error occurred while retrieving token. ', err);
-});
-
 export { messaging, getToken };
