@@ -1,4 +1,3 @@
-// firebase-messaging-sw.js
 importScripts('https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/9.6.10/firebase-messaging.js');
 
@@ -12,10 +11,8 @@ const firebaseConfig = {
     databaseURL: "https://cabana-8d55e-default-rtdb.firebaseio.com"
 };
 
-// Inicialize o Firebase
 firebase.initializeApp(firebaseConfig);
 
-// Inicialize o Firebase Cloud Messaging
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage(function(payload) {
