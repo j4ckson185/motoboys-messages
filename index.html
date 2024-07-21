@@ -20,7 +20,7 @@
                 if (permission === 'granted') {
                     console.log('Notification permission granted.');
                     // Use sua chave pública VAPID aqui
-                    getToken(messaging, { vapidKey: 'BFySZCcv5wrGFp1ZLwAzloQY_OYegYxruVhMDXao9uSUM8pwoUuLy1F97ak2LJ_ozbP0wZ5--DCT03oKtQNPeew' }).then((currentToken) => {
+                    getToken(messaging, { vapidKey: 'BJIv4vMW_5J4Zlus1ueRy2UlLqT3rOAoz63xZXBlS93_cE9QTplnB4kDiFBgE-B7U2QXobcDKK-6VqGAdyC47_Q' }).then((currentToken) => {
                         if (currentToken) {
                             console.log('FCM Token:', currentToken);
                             // Envie o token para o servidor e armazene-o para enviar notificações
