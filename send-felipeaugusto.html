@@ -3,59 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enviar Mensagem para Felipe Augusto</title>
+    <title>Envio de Mensagens para Felipe Augusto</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="https://i.ibb.co/jZ6rbSp/logo-cabana.png" type="image/png">
     <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/jZ6rbSp/logo-cabana.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://i.ibb.co/jZ6rbSp/logo-cabana.png">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <div class="container">
-        <div id="auth">
-            <img src="https://i.ibb.co/jZ6rbSp/logo-cabana.png" alt="Logo Cabana Açaí" class="logo">
-            <h1>Cabana Açaí</h1>
-            <h2>Cadastro</h2>
-            <form id="registerForm">
-                <label for="registerEmail">Email:</label>
-                <input type="email" id="registerEmail" required>
-                <label for="registerPassword">Senha:</label>
-                <input type="password" id="registerPassword" required>
-                <button type="submit">Cadastrar</button>
-            </form>
-
-            <h2>Login</h2>
-            <form id="loginForm">
-                <label for="loginEmail">Email:</label>
-                <input type="email" id="loginEmail" required>
-                <label for="loginPassword">Senha:</label>
-                <input type="password" id="loginPassword" required>
-                <button type="submit">Entrar</button>
-            </form>
-        </div>
-
-        <div id="messageSection" style="display:none;">
-            <h1>Enviar Mensagem para Felipe Augusto</h1>
-            <form id="messageForm">
-                <label for="message">Mensagem:</label>
-                <input type="text" id="message" required>
-                <button type="submit">Enviar</button>
-            </form>
-            <button id="logoutButton">Sair</button>
-        </div>
+        <h1>Envio de Mensagens para Felipe Augusto</h1>
+        <form id="messageForm">
+            <label for="messageInput">Mensagem:</label>
+            <input type="text" id="messageInput" required>
+            <button type="submit">Enviar</button>
+        </form>
     </div>
 
-    <script type="module" src="send-felipeaugusto.js"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js')
-                .then(registration => {
-                    console.log('Service Worker registrado com sucesso:', registration);
-                })
-                .catch(error => {
-                    console.log('Falha ao registrar o Service Worker:', error);
-                });
-        }
-    </script>
+    <script src="send-felipeaugusto.js" type="module"></script>
 </body>
 </html>
