@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mensagens para Geovane</title>
+    <title>Mensagens para Moisés</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="https://i.ibb.co/jZ6rbSp/logo-cabana.png" type="image/png">
     <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/jZ6rbSp/logo-cabana.png">
@@ -35,16 +35,84 @@
         <audio id="notificationSound" src="assets/notification.mp3" preload="auto"></audio>
     </div>
 
-    <script type="module" src="receive.js"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js')
-                .then(registration => {
-                    console.log('Service Worker registrado com sucesso:', registration);
+    <script type="module">
+        import { auth, signInWithEmailAndPassword, onAuthStateChanged, signOut, database, ref, onChildAdded, remove } from './firebase-config.js';
+
+        const loginForm = document.getElementById('loginForm');
+        const logoutButton = document.getElementById('logoutButton');
+        const deleteAllButton = document.getElementById('deleteAllButton');
+        const authDiv = document.getElementById('auth');
+        const messagesSection = document.getElementById('messagesSection');
+        const messagesDiv = document.getElementById('messages');
+        const notificationSound = document.getElementById('notificationSound');
+
+        // Nome do motoboy fixo para Moisés
+        const motoboy = 'moises';
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    loginForm.reset();
                 })
-                .catch(error => {
-                    console.log('Falha ao registrar o Service Worker:', error);
+                .catch((error) => {
+                    alert('Erro ao entrar: ' + error.message);
                 });
+        });
+
+        logoutButton.addEventListener('click', () => {
+            signOut(auth).then(() => {
+                // Logout bem-sucedido
+            }).catch((error) => {
+                alert('Erro ao sair: ' + error.message);
+            });
+        });
+
+        deleteAllButton.addEventListener('click', () => {
+            if (confirm('Tem certeza que deseja apagar todas as mensagens?')) {
+                const messagesRef = ref(database, `messages/${motoboy}`);
+                remove(messagesRef).then(() => {
+                    messagesDiv.innerHTML = '';
+                }).catch((error) => {
+                    alert('Erro ao apagar mensagens: ' + error.message);
+                });
+            }
+        });
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                authDiv.style.display = 'none';
+                messagesSection.style.display = 'block';
+                loadMessages();
+            } else {
+                authDiv.style.display = 'block';
+                messagesSection.style.display = 'none';
+            }
+        });
+
+        function loadMessages() {
+            const messagesRef = ref(database, `messages/${motoboy}`);
+            messagesDiv.innerHTML = '';
+            onChildAdded(messagesRef, (data) => {
+                const message = data.val().text;
+                const messageElement = document.createElement('div');
+                messageElement.textContent = message;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'X';
+                deleteButton.addEventListener('click', () => {
+                    remove(ref(database, `messages/${motoboy}/${data.key}`));
+                });
+
+                messageElement.appendChild(deleteButton);
+                messagesDiv.appendChild(messageElement);
+
+                notificationSound.play().catch(error => {
+                    console.error('Erro ao reproduzir o som de notificação:', error);
+                });
+            });
         }
     </script>
 </body>
