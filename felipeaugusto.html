@@ -8,7 +8,13 @@
     <link rel="icon" href="https://i.ibb.co/jZ6rbSp/logo-cabana.png" type="image/png">
     <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/jZ6rbSp/logo-cabana.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://i.ibb.co/jZ6rbSp/logo-cabana.png">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
+    <style>
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -28,8 +34,10 @@
         <div id="messagesSection" style="display:none;">
             <h1>Mensagens para Felipe Augusto</h1>
             <div id="messages"></div>
-            <button id="deleteAllButton">Apagar todos</button>
-            <button id="logoutButton">Sair</button>
+            <div class="buttons">
+                <button id="deleteAllButton">Apagar todas</button>
+                <button id="logoutButton">Sair</button>
+            </div>
         </div>
 
         <audio id="notificationSound" preload="auto">
@@ -39,108 +47,6 @@
         </audio>
     </div>
 
-    <script type="module">
-        import { auth, signInWithEmailAndPassword, onAuthStateChanged, signOut, database, ref, onChildAdded, remove } from './firebase-config.js';
-
-        const loginForm = document.getElementById('loginForm');
-        const logoutButton = document.getElementById('logoutButton');
-        const deleteAllButton = document.getElementById('deleteAllButton');
-        const authDiv = document.getElementById('auth');
-        const messagesSection = document.getElementById('messagesSection');
-        const messagesDiv = document.getElementById('messages');
-        const notificationSound = document.getElementById('notificationSound');
-
-        // Nome do motoboy fixo para Boaz
-        const motoboy = 'felipeaugusto';
-
-        // Lógica de Login
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    loginForm.reset();
-                })
-                .catch((error) => {
-                    alert('Erro ao entrar: ' + error.message);
-                });
-        });
-
-        // Lógica de Logout
-        logoutButton.addEventListener('click', () => {
-            signOut(auth).then(() => {
-                // Logout bem-sucedido
-            }).catch((error) => {
-                alert('Erro ao sair: ' + error.message);
-            });
-        });
-
-        // Botão para apagar todas as mensagens
-        deleteAllButton.addEventListener('click', () => {
-            if (confirm('Tem certeza que deseja apagar todas as mensagens?')) {
-                const messagesRef = ref(database, `messages/${motoboy}`);
-                remove(messagesRef).then(() => {
-                    messagesDiv.innerHTML = '';
-                }).catch((error) => {
-                    alert('Erro ao apagar mensagens: ' + error.message);
-                });
-            }
-        });
-
-        // Verifica o estado de autenticação do usuário
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                authDiv.style.display = 'none';
-                messagesSection.style.display = 'block';
-                loadMessages();
-            } else {
-                authDiv.style.display = 'block';
-                messagesSection.style.display = 'none';
-            }
-        });
-
-        // Função para carregar as mensagens
-        function loadMessages() {
-            const messagesRef = ref(database, `messages/${motoboy}`);
-            messagesDiv.innerHTML = '';
-            onChildAdded(messagesRef, (data) => {
-                const message = data.val().text;
-                const messageElement = document.createElement('div');
-                messageElement.textContent = message;
-
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'X';
-                deleteButton.addEventListener('click', () => {
-                    remove(ref(database, `messages/${motoboy}/${data.key}`));
-                });
-
-                messageElement.appendChild(deleteButton);
-                messagesDiv.appendChild(messageElement);
-
-                // Tocar o som de notificação
-                playNotificationSound();
-            });
-        }
-
-        // Função para tocar o som de notificação
-        function playNotificationSound() {
-            notificationSound.currentTime = 0; // Rewind to start
-            const playPromise = notificationSound.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.error('Erro ao reproduzir o som de notificação:', error);
-                });
-            }
-        }
-
-        // Preparar o som para tocar
-        window.addEventListener('load', () => {
-            notificationSound.play().catch(error => {
-                console.log('Erro ao preparar o som de notificação:', error);
-            });
-        });
-
-    </script>
+    <script src="felipeaugusto.js" type="module"></script>
 </body>
 </html>
