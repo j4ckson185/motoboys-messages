@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         <div id="auth">
-            <img src="https://i.ibb.co/jZ6rbSP/logo-cabana.png" alt="Logo Cabana Açaí" class="logo">
+            <img src="https://i.ibb.co/jZ6rbSp/logo-cabana.png" alt="Logo Cabana Açaí" class="logo">
             <h1>Cabana Açaí</h1>
             <h2>Login</h2>
             <form id="loginForm">
@@ -126,18 +126,20 @@
         // Função para tocar o som de notificação
         function playNotificationSound() {
             notificationSound.currentTime = 0; // Rewind to start
-            notificationSound.play().catch(error => {
-                console.error('Erro ao reproduzir o som de notificação:', error);
-            });
+            const playPromise = notificationSound.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.error('Erro ao reproduzir o som de notificação:', error);
+                });
+            }
         }
 
-        // Adicionar evento de interação para habilitar o som
-        document.body.addEventListener('click', () => {
+        // Preparar o som para tocar
+        window.addEventListener('load', () => {
             notificationSound.play().catch(error => {
-                // Apenas para garantir que o som seja ativado pelo menos uma vez após a interação do usuário
-                console.log('Interação do usuário detectada.');
+                console.log('Erro ao preparar o som de notificação:', error);
             });
-        }, { once: true });
+        });
 
     </script>
 </body>
