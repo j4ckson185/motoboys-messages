@@ -22,7 +22,7 @@ messaging.onBackgroundMessage(function(payload) {
     const notificationOptions = {
         body: payload.notification.body,
         icon: 'https://i.ibb.co/jZ6rbSp/logo-cabana.png',
-        sound: 'notification.mp3'
+        sound: 'assets/notification.mp3'
     };
 
     self.registration.showNotification(notificationTitle, notificationOptions);
