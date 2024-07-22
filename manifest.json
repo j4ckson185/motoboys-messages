@@ -1,20 +1,20 @@
 {
-  "name": "Motoboys Messages",
-  "short_name": "Motoboys",
-  "start_url": "index.html",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#6200ea",
-  "icons": [
-    {
-      "src": "https://i.ibb.co/jZ6rbSp/logo-cabana.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "https://i.ibb.co/jZ6rbSp/logo-cabana.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+    "name": "Cabana Notificações",
+    "short_name": "Cabana",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "description": "Receber notificações de pedidos para motoboys",
+    "icons": [
+        {
+            "src": "https://i.ibb.co/jZ6rbSp/logo-cabana.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://i.ibb.co/jZ6rbSp/logo-cabana.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
 }
