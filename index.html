@@ -5,7 +5,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-messaging-compat.js"></script>
   <script>
-    // Sua configuração do Firebase
+    // Configuração do Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyB-pF2lRStLTN9Xw9aYQj962qdNFyUXI2E",
       authDomain: "cabana-8d55e.firebaseapp.com",
@@ -45,18 +45,27 @@
       }
     }
 
-    window.addEventListener('DOMContentLoaded', (event) => {
-      document.getElementById('request-permission').addEventListener('click', requestPermission);
-    });
+    requestPermission();
 
     // Listener para mensagens recebidas enquanto a página está em primeiro plano
     messaging.onMessage((payload) => {
       console.log('Mensagem recebida:', payload);
+      const notificationTitle = payload.notification.title;
+      const notificationOptions = {
+        body: payload.notification.body,
+        icon: 'https://i.ibb.co/jZ6rbSp/logo-cabana.png'
+      };
+
+      if (Notification.permission === 'granted') {
+        const notification = new Notification(notificationTitle, notificationOptions);
+        notification.onclick = () => {
+          console.log('Notificação clicada');
+        };
+      }
     });
   </script>
 </head>
 <body>
   <h1>Firebase Example</h1>
-  <button id="request-permission">Permitir Notificações</button>
 </body>
 </html>
